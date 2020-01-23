@@ -11,7 +11,7 @@ public class SearchRepoTest {
     private String uri = "https://api.github.com/search/repositories";
 
     @Test
-    public void queryRepoForJava() {
+    public void filterRepoForJava() {
         ValidatableResponse response = given()
                 .queryParam("q", "language:java")
                 .queryParam("sort", "stars")
@@ -70,4 +70,17 @@ public class SearchRepoTest {
                 .then();
         response.extract().response().prettyPrint();
     }
+
+    @Test
+    public void filterByOrg() {
+        ValidatableResponse response = given()
+                .queryParam("q", "org:github")
+                .queryParam("sort", "updated")
+                .queryParam("order", "desc")
+                .when()
+                .get(uri)
+                .then();
+        response.extract().response().prettyPrint();
+    }
+
 }
