@@ -13,10 +13,11 @@ restassured_testng is a Java REST service testing framework using:
 
 ## Executing Tests
 
-**Maven Command:**
+**Maven Commands:**
 
 - Run the project - `mvn clean test`
+- Run test method - `mvn -Dtest=SearchRepoTest#searchByOrgAndVerifyResponse test`
 
 ## Reports
 
-Reports will be generated in `target/HtmlReport/ExtentHtml.html` after running the tests using maven command
+Reports will be generated in `target/HtmlReport/ExtentHtml.html`

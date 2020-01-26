@@ -23,7 +23,7 @@ public class SearchRepoUtils {
                 .queryParam("order", order)
                 .when()
                 .get(uri);
-        Assert.assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode(), "Status code not matching");
+        Assert.assertEquals(response.getStatusCode(), HttpURLConnection.HTTP_OK, "Status code not matching");
         return response;
     }
 
@@ -64,6 +64,6 @@ public class SearchRepoUtils {
             Collections.sort(intFieldValues);
         else if (orderBy.equals("desc"))
             intFieldValues.sort(Collections.reverseOrder());
-        Assert.assertEquals(intFieldValues, intFieldValuesBefore, "Results not sorted by " + sortByParam + "in " + orderBy);
+        Assert.assertEquals(intFieldValuesBefore, intFieldValues, "Results not sorted by " + sortByParam + "in " + orderBy);
     }
 }

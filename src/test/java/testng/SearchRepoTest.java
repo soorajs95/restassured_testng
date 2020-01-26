@@ -18,30 +18,30 @@ public class SearchRepoTest extends SearchRepoUtils {
     }
 
     @Test(testName = "Search repositories by date and verify response", dataProvider = "searchByDate", dataProviderClass = SearchRepoData.class)
-    public void searchByCreationDateAndVerifyResponse(String query, String sortBy, String orderBy, String field, String language) {
+    public void searchByCreationDateAndVerifyResponse(String query, String sortBy, String orderBy, String field, String date) {
         Response response = getResponse(query, sortBy, orderBy);
-        verifyResultPath(response, field, language);
+        verifyResultPath(response, field, date);
         verifySortingOrderInResults(response, sortBy, orderBy);
     }
 
     @Test(testName = "Search repositories by user and verify response", dataProvider = "searchByUser", dataProviderClass = SearchRepoData.class)
-    public void searchByUserAndVerifyResponse(String query, String sortBy, String orderBy, String field, String language) {
+    public void searchByUserAndVerifyResponse(String query, String sortBy, String orderBy, String field, String user) {
         Response response = getResponse(query, sortBy, orderBy);
-        verifyResultPath(response, field, language);
+        verifyResultPath(response, field, user);
         verifySortingOrderInResults(response, sortBy, orderBy);
     }
 
     @Test(testName = "Search repositories by license and verify response", dataProvider = "searchByLicense", dataProviderClass = SearchRepoData.class)
-    public void searchByLicenseAndVerifyResponse(String query, String sortBy, String orderBy, String field, String language) {
+    public void searchByLicenseAndVerifyResponse(String query, String sortBy, String orderBy, String field, String license) {
         Response response = getResponse(query, sortBy, orderBy);
-        verifyResultPath(response, field, language);
+        verifyResultPath(response, field, license);
         verifySortingOrderInResults(response, sortBy, orderBy);
     }
 
     @Test(testName = "Search repositories by organisation name and verify response", dataProvider = "searchByOrg", dataProviderClass = SearchRepoData.class)
-    public void searchByOrgNameAndVerifyResponse(String query, String sortBy, String orderBy, String field, String language) {
+    public void searchByOrgAndVerifyResponse(String query, String sortBy, String orderBy, String field, String org) {
         Response response = getResponse(query, sortBy, orderBy);
-        verifyResultPath(response, field, language);
+        verifyResultPath(response, field, org);
         verifySortingOrderInResults(response, sortBy, orderBy);
     }
 
