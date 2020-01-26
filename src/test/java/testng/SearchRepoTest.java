@@ -3,7 +3,6 @@ package testng;
 import com.aventstack.extentreports.testng.listener.ExtentITestListenerClassAdapter;
 import dataproviders.SearchRepoData;
 import io.restassured.response.Response;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import utilities.SearchRepoUtils;
@@ -44,10 +43,6 @@ public class SearchRepoTest extends SearchRepoUtils {
         Response response = getResponse(query, sortBy, orderBy);
         verifyResultPath(response, field, language);
         verifySortingOrderInResults(response, sortBy, orderBy);
-//        Response response = getResponse("org:github", "forks", "desc");
-//        verifyResultPath(response, "owner.login", "github");
-//        verifyResultPath(response, "owner.type", "organization");
-//        verifySortingOrderInResults(response, "forks", "desc");
     }
 
 }
