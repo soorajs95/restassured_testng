@@ -1,8 +1,9 @@
 package testng;
 
 import com.aventstack.extentreports.testng.listener.ExtentITestListenerClassAdapter;
+import dataproviders.SearchRepoData;
 import io.restassured.response.Response;
-import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import utilities.SearchRepoUtils;
@@ -10,42 +11,43 @@ import utilities.SearchRepoUtils;
 @Listeners({ExtentITestListenerClassAdapter.class})
 public class SearchRepoTest extends SearchRepoUtils {
 
-    private String uri = "https://api.github.com/search/repositories";
-
-    @Test
-    public void searchByLanguageAndVerifyResponse() {
-        Response response = getResponse("language:java", "stars", "desc");
-        Assert.assertEquals(200, response.getStatusCode());
-        Assert.assertTrue(verifyResultPath(response, "language", "java"));
+    @Test(testName = "Search repositories by language and verify response", dataProvider = "searchByLanguage", dataProviderClass = SearchRepoData.class)
+    public void searchByLanguageAndVerifyResponse(String query, String sortBy, String orderBy, String field, String language) {
+        Response response = getResponse(query, sortBy, orderBy);
+        verifyResultPath(response, field, language);
+        verifySortingOrderInResults(response, sortBy, orderBy);
     }
 
-    @Test
-    public void searchByCreationDateAndVerifyResponse() {
-        Response response = getResponse("created:2020-01-24", "updated", "asc");
-        Assert.assertEquals(200, response.getStatusCode());
-        Assert.assertTrue(verifyResultPath(response, "created_at", "2020-01-24"));
+    @Test(testName = "Search repositories by date and verify response", dataProvider = "searchByDate", dataProviderClass = SearchRepoData.class)
+    public void searchByCreationDateAndVerifyResponse(String query, String sortBy, String orderBy, String field, String language) {
+        Response response = getResponse(query, sortBy, orderBy);
+        verifyResultPath(response, field, language);
+        verifySortingOrderInResults(response, sortBy, orderBy);
     }
 
-    @Test
-    public void searchByUserAndVerifyResponse() {
-        Response response = getResponse("user:soorajs95", "updated", "asc");
-        Assert.assertEquals(200, response.getStatusCode());
-        Assert.assertTrue(verifyResultPath(response, "owner.login", "soorajs95"));
+    @Test(testName = "Search repositories by user and verify response", dataProvider = "searchByUser", dataProviderClass = SearchRepoData.class)
+    public void searchByUserAndVerifyResponse(String query, String sortBy, String orderBy, String field, String language) {
+        Response response = getResponse(query, sortBy, orderBy);
+        verifyResultPath(response, field, language);
+        verifySortingOrderInResults(response, sortBy, orderBy);
     }
 
-    @Test
-    public void searchByLicenseAndVerifyResponse() {
-        Response response = getResponse("license:apache-2.0", "stars", "desc");
-        Assert.assertEquals(200, response.getStatusCode());
-        Assert.assertTrue(verifyResultPath(response, "license.key", "apache-2.0"));
+    @Test(testName = "Search repositories by license and verify response", dataProvider = "searchByLicense", dataProviderClass = SearchRepoData.class)
+    public void searchByLicenseAndVerifyResponse(String query, String sortBy, String orderBy, String field, String language) {
+        Response response = getResponse(query, sortBy, orderBy);
+        verifyResultPath(response, field, language);
+        verifySortingOrderInResults(response, sortBy, orderBy);
     }
 
-    @Test
-    public void searchByOrgNameAndVerifyResponse() {
-        Response response = getResponse("org:github", "forks", "desc");
-        Assert.assertEquals(200, response.getStatusCode());
-        Assert.assertTrue(verifyResultPath(response, "owner.login", "github"));
-        Assert.assertTrue(verifyResultPath(response, "owner.type", "organization"));
+    @Test(testName = "Search repositories by organisation name and verify response", dataProvider = "searchByOrg", dataProviderClass = SearchRepoData.class)
+    public void searchByOrgNameAndVerifyResponse(String query, String sortBy, String orderBy, String field, String language) {
+        Response response = getResponse(query, sortBy, orderBy);
+        verifyResultPath(response, field, language);
+        verifySortingOrderInResults(response, sortBy, orderBy);
+//        Response response = getResponse("org:github", "forks", "desc");
+//        verifyResultPath(response, "owner.login", "github");
+//        verifyResultPath(response, "owner.type", "organization");
+//        verifySortingOrderInResults(response, "forks", "desc");
     }
 
 }
